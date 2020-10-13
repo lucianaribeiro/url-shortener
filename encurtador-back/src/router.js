@@ -46,4 +46,10 @@ router.post('/saveUrl', (req, res) => {
   });
 });
 
+router.get('/ranking', (_, res) => {
+  UrlModel.getRanking().then((ranking) => {
+    res.json(ranking);
+  });
+});
+
 module.exports = (app) => app.use('/', router);

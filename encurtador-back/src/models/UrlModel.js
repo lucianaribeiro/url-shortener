@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 const tiyee = require('tiyee-url');
 const UrlSchema = require('../schemas/urlSchema');
+const ranking = require('../utils/RankingUtil');
 
 const UrlModel = mongoose.model('UrlModel', UrlSchema);
 
@@ -73,6 +74,15 @@ module.exports = class Url {
           resolve(url);
         }
         resolve({});
+      });
+    });
+  }
+
+  static getRanking() {
+    return new Promise((resolve) => {
+      this.findAll().then((url) => {
+        const rank = ranking.selectFive(url);
+        resolve(rank);
       });
     });
   }
