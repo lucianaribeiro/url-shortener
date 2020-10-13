@@ -26,7 +26,7 @@ module.exports = class Url {
 
   setCount(counter) {
     this.count = counter;
-  };
+  }
 
   setShortUrl(shorter) {
     this.shortUrl = shorter;
