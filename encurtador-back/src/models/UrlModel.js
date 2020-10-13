@@ -14,6 +14,27 @@ module.exports = class Url {
       shortUrl: url.shortUrl,
     });
   }
+
+  getUrl() {
+    return this.url;
+  }
+
+  getCount() {
+    return this.url.count;
+  }
+
+  setCount(counter) {
+    this.count = counter;
+  };
+
+  setShortUrl(shorter) {
+    this.shortUrl = shorter;
+  }
+
+  setUrl(url) {
+    this.url = url;
+  }
+
   save() {
     return new Promise((resolve) => {
       this.url.save().then(() => {

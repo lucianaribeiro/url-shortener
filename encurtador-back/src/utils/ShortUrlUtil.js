@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const tiyee = require('tiyee-url');
 const UrlModel = require('../models/UrlModel');
 
@@ -10,7 +11,7 @@ module.exports = {
     });
   },
 
-  async saveData(longer, req, res) {
+  async saveData(longer, req) {
     let urlModel;
     const counter = 1;
     let fullUrl = {};
@@ -24,7 +25,6 @@ module.exports = {
         };
         urlModel = new UrlModel(fullUrl);
         urlModel.save().then((url) => {
-        //   res.json(url);
         });
       }
     } catch (err) {
