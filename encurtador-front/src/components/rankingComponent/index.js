@@ -21,7 +21,7 @@ export default class RankingComponent extends React.Component {
     }
 
     componentWillMount() {
-        axios.get('http://localhost:3000/ranking').then((response) => {
+        axios.get('http://157.245.253.7:3000/ranking').then((response) => {
             this.setState({ ranking: response.data });
             console.log(response);
         }).catch((error) => {
