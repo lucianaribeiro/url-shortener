@@ -1,7 +1,6 @@
 /* eslint-disable no-self-assign */
 /* eslint-disable lines-between-class-members */
 const mongoose = require('mongoose');
-const tiyee = require('tiyee-url');
 const UrlSchema = require('../schemas/urlSchema');
 const ranking = require('../utils/RankingUtil');
 
