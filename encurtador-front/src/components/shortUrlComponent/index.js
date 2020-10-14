@@ -24,27 +24,37 @@ export default class ShortUrlComponent extends React.Component {
 
     handleFormChange = event => {
         const value = event.target.value;
-        this.setState({value: value});
+        this.setState({ value: value });
     }
 
     render() {
         return (
             <Wrapper>
-                <form
-                    noValidate autoComplete="off"
-                    onChange={this.handleFormChange}
-                    onSubmit={ this.handleSubmit }>
-                    <FormWrapper>
-                        <TextWrapper>
-                            <TextField id="outlined-basic" label="URL" variant="outlined" borderColor="white" fullWidth />
-                        </TextWrapper>
-                        <ButtonWrapper>
-                            <Button variant="contained" color="primary" size="large" type="submit">
-                                Encurtar
+                <TitleWrapper>
+                    <PageTitle>
+                        Diminua seus links facilmente!
+                </PageTitle>
+                    <PageSubtitle>
+                        Uma ferramenta que te auxilia encurtar qualquer url que deseja.
+                </PageSubtitle>
+                </TitleWrapper>
+                <WrapperContent>
+                    <form
+                        noValidate autoComplete="off"
+                        onChange={this.handleFormChange}
+                        onSubmit={this.handleSubmit}>
+                        <FormWrapper>
+                            <TextWrapper>
+                                <TextField id="outlined-basic" label="URL" variant="outlined" borderColor="white" fullWidth />
+                            </TextWrapper>
+                            <ButtonWrapper>
+                                <Button variant="contained" color="primary" size="large" type="submit">
+                                    Encurtar
                             </Button>
-                        </ButtonWrapper>
-                    </FormWrapper>
-                </form>
+                            </ButtonWrapper>
+                        </FormWrapper>
+                    </form>
+                </WrapperContent>
             </Wrapper>
         );
     }
@@ -53,6 +63,22 @@ export default class ShortUrlComponent extends React.Component {
 
 const Wrapper = styled.div`
     width: 30%;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+`;
+
+const WrapperContent = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+`;
+
+const TitleWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 `;
 
 const FormWrapper = styled.div`
@@ -69,4 +95,13 @@ const TextWrapper = styled.div`
 
 const ButtonWrapper = styled.div`
     align-self: center;
+`;
+
+const PageTitle = styled.h1`
+    font-family: 'Hammersmith One', sans-serif;
+    font-size: 70px;
+`;
+
+const PageSubtitle = styled.h2`
+    color: #6D6D6D;
 `;

@@ -4,17 +4,22 @@ import styled from 'styled-components'
 import ShortUrlComponent from '../../components/shortUrlComponent';
 
 import { Helmet } from "react-helmet";
+
+const background = require('../../assets/img/background.png');
+const cover = require('../../assets/img/cover.png')
 export default class HomePage extends React.Component {
+
+
 
     render() {
         return (
             <Wrapper>
                 <Helmet>
-                    <style>{'body {background-color: white;} '}</style>
+                    <style>{`body {background-image: url('${background}')} body {background-position: center} body {background-size: cover} body{ background-repeat: no-repeat}`}</style>
                 </Helmet>
                 <ShortUrlComponent />
                 <div>
-                    <h1>BBBBBBBB</h1>
+                    <img src={cover} alt="cover" />
                 </div>
             </Wrapper>
         );
@@ -22,10 +27,14 @@ export default class HomePage extends React.Component {
 };
 
 const Wrapper = styled.div`
+    /* background-image: url('${ background}'); */
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     width: 100%;
     min-height: 98vh;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
 `;
