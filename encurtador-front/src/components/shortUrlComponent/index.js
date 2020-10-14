@@ -1,11 +1,8 @@
 import React from 'react';
 import styled from 'styled-components'
 import Button from '@material-ui/core/Button';
-import ShortUrl from '../../actions/shortUrl';
-import { FetchUrl } from '../../actions/fetchUrl';
 import { TextField } from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
-import AlertTitle from '@material-ui/lab/AlertTitle';
+import ShowUrlComponent from '../showUrlComponent'
 
 const axios = require('axios').default;
 export default class ShortUrlComponent extends React.Component {
@@ -16,18 +13,26 @@ export default class ShortUrlComponent extends React.Component {
         this.state = {
             longer: '',
             shorter: '',
+            openAlert: false,
+            load: false,
         };
     }
 
     handleSubmit = async event => {
         console.log(event);
         event.preventDefault();
+        this.setState({ load: true })
+        this.setState({ openAlert: true })
 
-        axios.post(`http://localhost:3000/saveUrl`, {
+        await axios.post(`http://localhost:3000/saveUrl`, {
             longUrl: this.state.longer,
-        }).then(async (response) => {
-            await this.setState({ shorter: response.data.shortUrl });
-            console.log(response);
+        }).then((response) => {
+            if(response.data.count){
+                this.setState({ shorter: response.data.shortUrl });
+            } else{
+                this.setState({ shorter: response.data });
+            }
+                console.log(response);
         }).catch((error) => {
             console.log(error);
         })
@@ -42,6 +47,16 @@ export default class ShortUrlComponent extends React.Component {
     redirectLink = () => {
         window.open(`${this.state.shorter}`, "_blank");
         // window.location.href=`http://${this.state.shorter}`
+    }
+
+    renderShortURL() {
+        if (!this.state.shorter) {
+            return null;
+        }
+
+        return(
+            <ShowUrlComponent shorter={this.state.shorter}/>
+        )
     }
 
     render() {
@@ -71,15 +86,13 @@ export default class ShortUrlComponent extends React.Component {
                             </ButtonWrapper>
                         </FormWrapper>
                     </form>
-                    {this.state.shorter &&
                         <URLWrapper>
                             {/* <a target="_blank" href={this.state.shorter}>{this.state.shorter}</a> */}
-                            <Alert severity="success">
-                                <AlertTitle>Seu link foi gerado com sucesso!</AlertTitle>
-                                    <strong><Link onClick={this.redirectLink}>{this.state.shorter}</Link></strong>
-                            </Alert>
+                            {this.renderShortURL()}
                         </URLWrapper>
-                    }
+                    <Button variant="contained" color="primary" size="large" type="submit">
+                        Ver Ranking
+                    </Button>
                 </WrapperContent>
             </Wrapper>
         );
@@ -111,6 +124,7 @@ const FormWrapper = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 10px;
 `;
 
 const TextWrapper = styled.div`
@@ -123,7 +137,11 @@ const ButtonWrapper = styled.div`
     align-self: center;
 `;
 
-const URLWrapper = styled.div``;
+const URLWrapper = styled.div`
+
+margin-bottom: 10px;
+
+`;
 
 const PageTitle = styled.h1`
     font-family: 'Hammersmith One', sans-serif;
@@ -134,6 +152,6 @@ const PageSubtitle = styled.h2`
     color: #6D6D6D;
 `;
 
-const Link = styled.div `
+const Link = styled.div`
     cursor: pointer;
 `;

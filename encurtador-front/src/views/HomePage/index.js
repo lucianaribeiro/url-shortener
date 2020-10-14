@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components'
-
 import ShortUrlComponent from '../../components/shortUrlComponent';
 
 import { Helmet } from "react-helmet";
@@ -27,10 +26,6 @@ export default class HomePage extends React.Component {
 };
 
 const Wrapper = styled.div`
-    /* background-image: url('${ background}'); */
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
     width: 100%;
     min-height: 98vh;
     display: flex;
