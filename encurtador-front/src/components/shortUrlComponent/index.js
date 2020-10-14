@@ -2,29 +2,44 @@ import React from 'react';
 import styled from 'styled-components'
 import Button from '@material-ui/core/Button';
 import ShortUrl from '../../actions/shortUrl';
-
+import { FetchUrl }  from '../../actions/fetchUrl';
 import { TextField } from '@material-ui/core';
-export default class ShortUrlComponent extends React.Component {
 
+const axios = require('axios').default;
+export default class ShortUrlComponent extends React.Component {
+    
     constructor(props) {
         super(props);
 
         this.state = {
-            value: '',
+            longer: '',
+            shorter: '',
         };
     }
 
     handleSubmit = async event => {
         console.log(event);
-
-        ShortUrl(this.state.value);
-
         event.preventDefault();
+
+        axios.post(`http://localhost:3000/saveUrl`, {
+            longUrl:this.state.longer,
+        }).then((response) => {
+            this.setState({shorter: response.data.shortUrl});
+            console.log(response);
+        }).catch((error) => {
+            console.log(error);
+        })
+
     }
 
     handleFormChange = event => {
         const value = event.target.value;
-        this.setState({ value: value });
+        this.setState({ longer: value });
+    }
+
+    redirectLink = () => {
+        // window.open(this.state.shorter);
+        console.log(this.state)
     }
 
     render() {
@@ -54,6 +69,11 @@ export default class ShortUrlComponent extends React.Component {
                             </ButtonWrapper>
                         </FormWrapper>
                     </form>
+                    {this.state.shorter && 
+                        <URLWrapper>
+                            <div onClick={this.redirectLink}>{this.state.shorter}</div>
+                        </URLWrapper>
+                    }
                 </WrapperContent>
             </Wrapper>
         );
@@ -96,6 +116,8 @@ const TextWrapper = styled.div`
 const ButtonWrapper = styled.div`
     align-self: center;
 `;
+
+const URLWrapper = styled.div``;
 
 const PageTitle = styled.h1`
     font-family: 'Hammersmith One', sans-serif;

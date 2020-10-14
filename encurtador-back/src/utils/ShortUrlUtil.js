@@ -24,7 +24,7 @@ module.exports = {
           shortUrl: shorter,
         };
         urlModel = new UrlModel(fullUrl);
-        urlModel.save().then((url) => {
+        urlModel.save().then(() => {
         });
       }
     } catch (err) {

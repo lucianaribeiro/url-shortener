@@ -1,6 +1,7 @@
 const express = require('express');
 const UrlModel = require('./models/UrlModel');
 const shortUrl = require('./utils/ShortUrlUtil');
+const { response } = require('express');
 
 const router = express.Router();
 
@@ -27,7 +28,9 @@ router.post('/saveUrl', (req, res) => {
     if (url.length <= 0) {
       const longer = req.body.longUrl;
       shortUrl.saveData(longer, req.body).then(() => {
-        res.json(url);
+        shortUrl.getShortUrl(longer).then((data) => {
+          res.json(data);
+        });
       });
     } else {
       let counter = url[0].count;
@@ -49,6 +52,15 @@ router.post('/saveUrl', (req, res) => {
 router.get('/ranking', (_, res) => {
   UrlModel.getRanking().then((ranking) => {
     res.json(ranking);
+  });
+});
+
+router.get('/url', (req, res) => {
+  const urlModel = new UrlModel(req.body);
+
+  urlModel.findMe().then((url) => {
+    console.log(url);
+    res.json(url);
   });
 });
 
