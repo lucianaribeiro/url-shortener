@@ -2,12 +2,14 @@ import React from 'react';
 import styled from 'styled-components'
 import Button from '@material-ui/core/Button';
 import ShortUrl from '../../actions/shortUrl';
-import { FetchUrl }  from '../../actions/fetchUrl';
+import { FetchUrl } from '../../actions/fetchUrl';
 import { TextField } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 
 const axios = require('axios').default;
 export default class ShortUrlComponent extends React.Component {
-    
+
     constructor(props) {
         super(props);
 
@@ -22,9 +24,9 @@ export default class ShortUrlComponent extends React.Component {
         event.preventDefault();
 
         axios.post(`http://localhost:3000/saveUrl`, {
-            longUrl:this.state.longer,
-        }).then((response) => {
-            this.setState({shorter: response.data.shortUrl});
+            longUrl: this.state.longer,
+        }).then(async (response) => {
+            await this.setState({ shorter: response.data.shortUrl });
             console.log(response);
         }).catch((error) => {
             console.log(error);
@@ -69,10 +71,13 @@ export default class ShortUrlComponent extends React.Component {
                             </ButtonWrapper>
                         </FormWrapper>
                     </form>
-                    {this.state.shorter && 
+                    {this.state.shorter &&
                         <URLWrapper>
                             {/* <a target="_blank" href={this.state.shorter}>{this.state.shorter}</a> */}
-                            <div onClick={this.redirectLink}>{this.state.shorter}</div>
+                            <Alert severity="success">
+                                <AlertTitle>Seu link foi gerado com sucesso!</AlertTitle>
+                                    <strong><Link onClick={this.redirectLink}>{this.state.shorter}</Link></strong>
+                            </Alert>
                         </URLWrapper>
                     }
                 </WrapperContent>
@@ -127,4 +132,8 @@ const PageTitle = styled.h1`
 
 const PageSubtitle = styled.h2`
     color: #6D6D6D;
+`;
+
+const Link = styled.div `
+    cursor: pointer;
 `;
