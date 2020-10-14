@@ -1,62 +1,66 @@
-# Teste técnico
+# Encurtador de URL
 
-## Escopo
-Encurtamento de URL é uma técnica utilizada na internet para transformar um endereço HTTP em um link mais curto. Você foi designado para desenvolver uma nova plataforma que seja capaz de encurtar urls e mostrar os links mais acessados após o encurtamento.
-
-Você recebeu três histórias de usuário para serem desenvolvidas na primeira sprint do projeto:
-
-1.  Como usuário, desejo encurtar urls para tornar-las mais simples de serem compartilhadas em outras redes;
-	-   O input deve validar se o texto inserido tem o formato de uma url;
-	-   Urls inválidas não poderão ser encurtadas;
-	-   Urls encurtadas devem ser únicas;
-	-  Uma url que já foi encurtada não deve ser encurtada novamente;
-
-
-2.  Como usuário, gostaria de ao clicar em uma url encurtada, ser redirecionado para a url original;
-	-  O usuário deverá ser redirecionado para o encurtador;
-	-  O encurtador deverá reconhecer a url encurtada, e redirecionar o usuário para a url original;
-
-
-3.  Como usuário, desejo visualizar as urls mais acessadas após o encurtamento;
-	-   As urls mais acessadas deverão ser apresentadas no formato de ranking;
-	-   O ranking deve mostrar apenas as cinco urls mais acessadas;
-	-   O ranking deve mostrar a url original, a url encurtada e a totalidade de acessos à url encurtada;
-
-
-Dada as histórias anteriores, a plataforma deverá ter duas telas:
-
-	- Tela para realizar o encurtamento;
-	- Ranking com lista de urls encurtadas;
-
-
-As seguintes tecnologias poderão ser utilizadas para o desenvolvimento da solução:
-
-	- Frontend: qualquer biblioteca/framework;
-	- Backend: ruby, python, NodeJS ou PHP (qualquer biblioteca/framework feitos nessas linguagens);
+Um projeto que consiste em um sistema web que permite que o usuário encurte urls e visualize o ranking com as 5 urls mais usadas.
+Foi desenvolvido em NodeJS, ReactJS e MongoDB. 
 
 ## Deploy
 
-O deploy local deverá ser feito via `docker-compose`.
-Caso o deploy no ambiente local dos avaliadores não funcione, o candidato está automaticamente **desclassificado**.
+O deploy do sistema foi feito na Digital Ocean e pode ser acessado nas seguintes URLs:
 
-## Critérios de avaliação
+- Backend: http://157.245.253.7:3000/
+- Frontend: http://204.48.27.38:3001/
 
-- Organização do código;
-- Legibilidade;
-- Configuração separada da implementação (https://12factor.net/);
-- Testes automatizados (**Aplicação sem testes será desclassificada**);
-- Documentação da arquitetura escolhida para a solução;
-- Aplicação com código copiado de outros candidatos ou da internet será **desclassificada**.
+## Como contribuir
+
+### Frontend
+
+Obs: É necessário ter o docker e docker-compose instalados na máquina.
+
+1. Clone o repositório
+	```$ git clone https://gitlab.com/lucianaribeiro/encurtador-de-url ```
+
+2. Entre na pasta do frontend
+	```$ cd encurtador-front```
+
+3. Rode o docker
+	```$ docker-compose up --build ```
 
 
-## Entrega
+### Backend
 
-Como líder do time, você tem liberdade para implementar a solução na arquitetura que preferir. O fluxo de envio da solução deverá
-ser da seguinte forma:
+Obs: É necessário ter o docker e docker-compose instalados na máquina.
 
-- Faça um fork privado desse [repositório](https://gitlab.com/pencillabs/encurtador-de-url);
-- Desenvolva a solução no seu fork;
-- Ao final do período do teste, envie um email para `contato@pencillabs.com.br`, com o link para o repositório. Vocẽ deverá
-utilizar o gitlab, e adicionar os usuários dos avaliadores como contribuidores do seu repositório;
+1. Clone o repositório
+	```$ git clone https://gitlab.com/lucianaribeiro/encurtador-de-url ```
 
-O prazo para entrega do projeto é de uma semana a partir do dia **7/10/2020**.
+2. Entre na pasta do frontend
+	```$ cd encurtador-back```
+
+3. Rode o docker
+	```$ docker-compose up --build ```
+
+## Arquitetura
+
+### Representação Arquitetural: Diagrama de Relações
+
+![diagrama](Diagrama de Relações.png)
+
+- ReactJS: O React é uma biblioteca JavaScript declarativa, eficiente e flexível para criar interfaces com o usuário. Ele permite compor UIs complexas a partir de pequenos e isolados códigos chamados “componentes”.
+
+- NodeJS: Node.js é uma plataforma de aplicação para Javascript, que tem como principal objetivo facilitar a construção de softwares escaláveis. Ele geralmente é usado ao lado do servidor e é orientado para o estilo de programação voltada a evento. 
+
+- MongoDB: MongoDB é um framework de banco de dados noSQL. Ele é orientado a documento, livre de esquemas, não relacional, e open-source. MongoDB trabalha com arquivos JSON que contém toda a informação do banco de dados.
+
+
+### Definição da Arquitetura
+
+A arquitetura escolhida foi MVC, Model-View-Controller. As models, no projeto, fazem o papel de definir o modelo de dados e definirem as funções básicas do modelo, que se conectam diretamente com o banco por meio do *mongoose*. 
+
+O arquivo *routes* armazena todas as views, ou seja, todas as rotas do projeto. As rotas são a parte que o frontend usará para se conectar com o backend. 
+
+Por último, as *utils* armazenam todas as funções que manipulam e modificam os dados. Também estão presentes as funções que utilizam bibliotecas externas.
+
+O frontend foi desenvolvido orientado a componentes. Utilizando a bliblioteca ReactJS, o frontend possui componentes e views. Para acessar o backend, foi utilizado a bliblioteca *axios*
+
+
+Author: Luciana Ribeiro @lucianaribeiro
