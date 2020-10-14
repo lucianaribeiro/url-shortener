@@ -26,7 +26,7 @@ export default class ShortUrlComponent extends React.Component {
         this.setState({ load: true })
         this.setState({ openAlert: true })
 
-        await axios.post(`http://localhost:3000/saveUrl`, {
+        await axios.post(`http://157.245.253.7:3000/saveUrl`, {
             longUrl: this.state.longer,
         }).then((response) => {
             if (response.data.count) {
