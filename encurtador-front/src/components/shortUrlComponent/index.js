@@ -21,12 +21,15 @@ export default class ShortUrlComponent extends React.Component {
     }
 
     handleSubmit = async event => {
+        const local = 'http://localhost:3000/saveUrl';
+        const production = 'http://157.245.253.7:3000/saveUrl'
+
         console.log(event);
         event.preventDefault();
         this.setState({ load: true })
         this.setState({ openAlert: true })
 
-        await axios.post(`http://157.245.253.7:3000/saveUrl`, {
+        await axios.post(production, {
             longUrl: this.state.longer,
         }).then((response) => {
             if (response.data.count) {

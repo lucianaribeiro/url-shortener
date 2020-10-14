@@ -7,7 +7,12 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://204.48.27.38:3001');
+  const allowedOrigins = ['http://204.48.27.38:3001', 'http://localhost:3001'];
+  const { origin } = req.headers;
+  
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Methods', ['PATCH', 'POST', 'GET', 'DELETE', 'PUT']);
   res.setHeader('Access-Control-Allow-Headers', ['Content-Type']);
