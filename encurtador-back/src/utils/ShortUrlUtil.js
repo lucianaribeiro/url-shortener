@@ -1,13 +1,14 @@
 /* eslint-disable no-console */
-const tiyee = require('tiyee-url');
+var shortUrl = require('node-url-shortener');
 const UrlModel = require('../models/UrlModel');
 
 module.exports = {
   getShortUrl(longUrl) {
-    let newShortUrl;
     return new Promise((resolve, reject) => {
-      newShortUrl = tiyee.shortUrl(longUrl);
-      resolve(newShortUrl);
+      shortUrl.short(longUrl, (err, url) => {
+        console.log("URL", url);
+        resolve(url);
+      });
     });
   },
 

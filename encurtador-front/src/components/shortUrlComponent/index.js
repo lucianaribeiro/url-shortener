@@ -38,8 +38,8 @@ export default class ShortUrlComponent extends React.Component {
     }
 
     redirectLink = () => {
-        // window.open(this.state.shorter);
-        console.log(this.state)
+        window.open(`${this.state.shorter}`, "_blank");
+        // window.location.href=`http://${this.state.shorter}`
     }
 
     render() {
@@ -71,6 +71,7 @@ export default class ShortUrlComponent extends React.Component {
                     </form>
                     {this.state.shorter && 
                         <URLWrapper>
+                            {/* <a target="_blank" href={this.state.shorter}>{this.state.shorter}</a> */}
                             <div onClick={this.redirectLink}>{this.state.shorter}</div>
                         </URLWrapper>
                     }
