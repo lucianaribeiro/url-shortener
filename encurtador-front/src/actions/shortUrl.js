@@ -2,7 +2,8 @@ const axios = require('axios').default;
 
 const baseURL = 'http://localhost:3000/';
 
-export default function ShortUrl(url){
+export default async function ShortUrl(url){
+
     axios.post(`${baseURL}saveUrl`, {
         longUrl:url,
     }).then((response) => {
@@ -10,4 +11,5 @@ export default function ShortUrl(url){
     }).catch((error) => {
         console.log(error);
     })
+
 }
