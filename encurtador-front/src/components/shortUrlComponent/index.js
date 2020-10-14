@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components'
 import Button from '@material-ui/core/Button';
 import { TextField } from '@material-ui/core';
-import ShowUrlComponent from '../showUrlComponent'
+import ShowUrlComponent from '../showUrlComponent';
+import RankingComponent from '../rankingComponent';
 
 const axios = require('axios').default;
 export default class ShortUrlComponent extends React.Component {
@@ -15,6 +16,7 @@ export default class ShortUrlComponent extends React.Component {
             shorter: '',
             openAlert: false,
             load: false,
+            showRanking: false,
         };
     }
 
@@ -27,12 +29,12 @@ export default class ShortUrlComponent extends React.Component {
         await axios.post(`http://localhost:3000/saveUrl`, {
             longUrl: this.state.longer,
         }).then((response) => {
-            if(response.data.count){
+            if (response.data.count) {
                 this.setState({ shorter: response.data.shortUrl });
-            } else{
+            } else {
                 this.setState({ shorter: response.data });
             }
-                console.log(response);
+            console.log(response);
         }).catch((error) => {
             console.log(error);
         })
@@ -54,45 +56,67 @@ export default class ShortUrlComponent extends React.Component {
             return null;
         }
 
-        return(
-            <ShowUrlComponent shorter={this.state.shorter}/>
+        return (
+            <ShowUrlComponent shorter={this.state.shorter} />
         )
     }
 
     render() {
+        const showRanking = this.state.showRanking
         return (
             <Wrapper>
                 <TitleWrapper>
-                    <PageTitle>
-                        Diminua seus links facilmente!
-                </PageTitle>
-                    <PageSubtitle>
-                        Uma ferramenta que te auxilia encurtar qualquer url que deseja.
-                </PageSubtitle>
+                    {!showRanking &&
+                        <div>
+                            <PageTitle>
+                                Diminua seus links facilmente!
+                        </PageTitle>
+                            <PageSubtitle>
+                                Uma ferramenta que te auxilia encurtar qualquer url que deseja.
+                        </PageSubtitle>
+                        </div>
+                    }
+                    {showRanking &&
+                        <PageTitle>
+                            As URLs mais acessadas!
+                        </PageTitle>
+                    }
                 </TitleWrapper>
                 <WrapperContent>
-                    <form
-                        noValidate autoComplete="off"
-                        onChange={this.handleFormChange}
-                        onSubmit={this.handleSubmit}>
-                        <FormWrapper>
-                            <TextWrapper>
-                                <TextField id="outlined-basic" label="URL" variant="outlined" borderColor="white" fullWidth />
-                            </TextWrapper>
-                            <ButtonWrapper>
-                                <Button variant="contained" color="primary" size="large" type="submit">
-                                    Encurtar
+                    {!showRanking &&
+                        <div>
+                            <form
+                                noValidate autoComplete="off"
+                                onChange={this.handleFormChange}
+                                onSubmit={this.handleSubmit}>
+                                <FormWrapper>
+                                    <TextWrapper>
+                                        <TextField id="outlined-basic" label="URL" variant="outlined" borderColor="white" fullWidth />
+                                    </TextWrapper>
+                                    <ButtonWrapper>
+                                        <Button variant="contained" color="primary" size="large" type="submit">
+                                            Encurtar
                             </Button>
-                            </ButtonWrapper>
-                        </FormWrapper>
-                    </form>
-                        <URLWrapper>
-                            {/* <a target="_blank" href={this.state.shorter}>{this.state.shorter}</a> */}
-                            {this.renderShortURL()}
-                        </URLWrapper>
-                    <Button variant="contained" color="primary" size="large" type="submit">
-                        Ver Ranking
-                    </Button>
+                                    </ButtonWrapper>
+                                </FormWrapper>
+                            </form>
+                            <URLWrapper>
+                                {/* <a target="_blank" href={this.state.shorter}>{this.state.shorter}</a> */}
+                                {this.renderShortURL()}
+                            </URLWrapper>
+                        </div>
+                    }{showRanking &&
+                        <RankingComponent />
+                    }
+                    {!showRanking &&
+                        <Button variant="contained" color="primary" size="large" onClick={() => this.setState({ showRanking: true })}>
+                            Ver Ranking
+                        </Button>
+                    } {showRanking &&
+                        <Button variant="contained" color="primary" size="large" onClick={() => this.setState({ showRanking: false })}>
+                            Encurtar uma URL
+                        </Button>
+                    }
                 </WrapperContent>
             </Wrapper>
         );
@@ -101,7 +125,7 @@ export default class ShortUrlComponent extends React.Component {
 };
 
 const Wrapper = styled.div`
-    width: 30%;
+    width: 35%;
     height: 30vh;
     display: flex;
     flex-direction: column;
