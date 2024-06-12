@@ -1,66 +1,63 @@
-# Encurtador de URL
+# URL Shortener
 
-Um projeto que consiste em um sistema web que permite que o usuário encurte urls e visualize o ranking com as 5 urls mais usadas.
-Foi desenvolvido em NodeJS, ReactJS e MongoDB. 
+A project that consists of a web system that allows the user to shorten urls and view the ranking with the 5 most used urls.
+It was developed in NodeJS, ReactJS and MongoDB.
 
 ## Deploy
 
-O deploy do sistema foi feito na Digital Ocean e pode ser acessado nas seguintes URLs:
+The system was deployed at Digital Ocean and can be accessed at the following URLs:
 
 - Backend: http://157.245.253.7:3000/
 - Frontend: http://204.48.27.38:3001/
 
-## Como contribuir
+## How to contribute
 
 ### Frontend
 
-Obs: É necessário ter o docker e docker-compose instalados na máquina.
+Note: Docker and docker-compose must be installed on the machine.
 
-1. Clone o repositório
-	```$ git clone https://gitlab.com/lucianaribeiro/encurtador-de-url ```
+1. Clone the repository
+   `$ git clone https://gitlab.com/lucianaribeiro/shortener-de-url `
 
-2. Entre na pasta do frontend
-	```$ cd encurtador-front```
+2. Enter the frontend directory
+   `$ cd shortener-front`
 
-3. Rode o docker
-	```$ docker-compose up --build ```
-
+3. Run Docker
+   `$ docker-compose up --build `
 
 ### Backend
 
-Obs: É necessário ter o docker e docker-compose instalados na máquina.
+Note: Docker and docker-compose must be installed on the machine
 
-1. Clone o repositório
-	```$ git clone https://gitlab.com/lucianaribeiro/encurtador-de-url ```
+1. Clone the repository
+   `$ git clone https://gitlab.com/lucianaribeiro/shortener-de-url `
 
-2. Entre na pasta do frontend
-	```$ cd encurtador-back```
+2. Enter the backend directory
+   `$ cd shortener-back`
 
-3. Rode o docker
-	```$ docker-compose up --build ```
+3. Run Docker
+   `$ docker-compose up --build `
 
-## Arquitetura
+## Architecture
 
-### Representação Arquitetural: Diagrama de Relações
+### Architectural Representation: Relationship Diagram
 
-![diagrama](Diagrama de Relações.png)
+![diagram](Relationship-diagram.png)
 
-- ReactJS: O React é uma biblioteca JavaScript declarativa, eficiente e flexível para criar interfaces com o usuário. Ele permite compor UIs complexas a partir de pequenos e isolados códigos chamados “componentes”.
+- ReactJS: React is a declarative, efficient, and flexible JavaScript library for building user interfaces. It allows for composing complex UIs from small and isolated pieces of code called “components”.
 
-- NodeJS: Node.js é uma plataforma de aplicação para Javascript, que tem como principal objetivo facilitar a construção de softwares escaláveis. Ele geralmente é usado ao lado do servidor e é orientado para o estilo de programação voltada a evento. 
+- NodeJS: Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. It is designed to build scalable network applications. It is typically used on the server side and is event-driven.
 
-- MongoDB: MongoDB é um framework de banco de dados noSQL. Ele é orientado a documento, livre de esquemas, não relacional, e open-source. MongoDB trabalha com arquivos JSON que contém toda a informação do banco de dados.
+- MongoDB: MongoDB is a NoSQL database framework. It is document-oriented, schema-free, non-relational, and open-source. MongoDB works with JSON files that contain the database information.
 
+### Architecture Definition
 
-### Definição da Arquitetura
+The architecture chosen was MVC, Model-View-Controller. The models in the project define the data model and basic model functions, connecting directly to the database via mongoose.
 
-A arquitetura escolhida foi MVC, Model-View-Controller. As models, no projeto, fazem o papel de definir o modelo de dados e definirem as funções básicas do modelo, que se conectam diretamente com o banco por meio do *mongoose*. 
+The routes file stores all the views, i.e., all the routes of the project. The routes are the part that the frontend will use to connect with the backend.
 
-O arquivo *routes* armazena todas as views, ou seja, todas as rotas do projeto. As rotas são a parte que o frontend usará para se conectar com o backend. 
+Lastly, the utils store all the functions that manipulate and modify the data. It also contains functions that use external libraries.
 
-Por último, as *utils* armazenam todas as funções que manipulam e modificam os dados. Também estão presentes as funções que utilizam bibliotecas externas.
-
-O frontend foi desenvolvido orientado a componentes. Utilizando a bliblioteca ReactJS, o frontend possui componentes e views. Para acessar o backend, foi utilizado a bliblioteca *axios*
-
+The frontend was developed with a component-oriented approach. Using the ReactJS library, the frontend has components and views. The axios library was used to access the backend.
 
 Author: Luciana Ribeiro @lucianaribeiro
